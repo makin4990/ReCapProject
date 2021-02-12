@@ -1,19 +1,34 @@
 ﻿using Business.Concrete;
 using DataAccess.Concrete.InMemory;
 using System;
+using DataAccess.Concrete.EntityFramework;
 
 namespace ConsoleUI
 {
-    class Program
+    public class Program
     {
         static void Main(string[] args)
         {
-            CarManager carManager = new CarManager(new InMemoryCarDal());
+            CarTest();
+            //BrandTest();
+        }
 
-            foreach (var car in carManager.GetAll())
+        private static void CarTest()
+        {
+            CarManager carManager = new CarManager(new EfCarDal());
+
+            foreach (var car in carManager.GetCarDetail()) 
             {
-                Console.WriteLine(car.ModelName + " " + car.BrandId +" : $" + car.DailyPrice );
+                Console.WriteLine(car.BrandName + "/" + car.CarName +"/"+ car.ColorName + "/" + car.ModelYear + "/ $" +  car.DailyPrice);
+            }
+        }
+        private static void BrandTest()
+        {
+            BrandManager brandManager = new BrandManager(new EfBrandDal());
 
+            foreach (var brand in brandManager.GetAll())
+            {
+                Console.WriteLine(brand.Name);
             }
         }
     }
