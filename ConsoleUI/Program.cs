@@ -2,6 +2,7 @@
 using DataAccess.Concrete.InMemory;
 using System;
 using DataAccess.Concrete.EntityFramework;
+using Entities.Concrete;
 
 namespace ConsoleUI
 {
@@ -11,16 +12,27 @@ namespace ConsoleUI
         {
             CarTest();
             //BrandTest();
+            //ColorAdd();
         }
 
         private static void CarTest()
         {
             CarManager carManager = new CarManager(new EfCarDal());
+            var result = carManager.GetCarDetail();
 
-            foreach (var car in carManager.GetCarDetail()) 
+            if (result.Success)
             {
-                Console.WriteLine(car.BrandName + "/" + car.CarName +"/"+ car.ColorName + "/" + car.ModelYear + "/ $" +  car.DailyPrice);
+                foreach (var car in result.Data)
+                {
+                    Console.WriteLine(car.BrandName + "/" + car.CarName + "/" + car.ColorName + "/" + car.ModelYear + "/ $" + car.DailyPrice);
+                }
             }
+            else
+            {
+                Console.WriteLine(result.Message);
+            }
+           
+            
         }
         private static void BrandTest()
         {
@@ -30,6 +42,12 @@ namespace ConsoleUI
             {
                 Console.WriteLine(brand.Name);
             }
+        }
+        private static void ColorAdd()
+        {
+            ColorManager colorManager = new ColorManager(new EfColorDal());
+
+            colorManager.Add(new Color{Name = "Orrange"});
         }
     }
 }

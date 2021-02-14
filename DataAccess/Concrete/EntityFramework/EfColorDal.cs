@@ -9,11 +9,8 @@ using Entities.DTOs;
 
 namespace DataAccess.Concrete.EntityFramework
 {
-    public class EfColorDal : EfEntityRepositoryBase<Car, CarsContext>, ICarDal
+    public class EfColorDal : EfEntityRepositoryBase<Color, CarsContext>, IColorDal
     {
-        public List<CarDetailDto> GetCarDetail()
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }
